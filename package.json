@@ -2,7 +2,7 @@
   "name": "qawebsite",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "http://questionanswer-env.eba-sh3qfkcs.us-east-1.elasticbeanstalk.com/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -11,6 +11,7 @@
     "bootstrap": "^4.5.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-infinite-scroller": "^1.2.4",
     "react-read-more-less": "^0.1.6",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",

@@ -15,6 +15,8 @@ class Singlequestionpage extends Component{
                 loggedin=false;
         }
         this.state={
+            question:'',
+            questioned_by:'',
             answer:[],
             loggedin
         }
@@ -23,14 +25,24 @@ class Singlequestionpage extends Component{
     componentDidMount() {
         const accessToken=localStorage.getItem("token");
             console.log('Bearer ' + accessToken);
-            const url="/getanswer?question="+this.props.match.params.question+"?";
-            
+            const questioned_by=this.props.match.params.questioned_by;
+            const url="/getanswerforaquestion?question="+this.props.match.params.question+"&questioned_by=" + questioned_by;
+            console.log("&&&&&" + url + "&&&&&&&&");
+            console.log("question:" + this.props.match.params.question);
+            console.log("name:" + this.props.match.params.name);
             axios.get(url,{
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
             })
-            .then(res=>{this.setState({question:this.props.match.params.question+"?",answer:res.data})})
+            .then(res=>{
+                console.log(res);
+                this.setState({
+                    question:this.props.match.params.question+"?",
+                    answer:res.data,
+                    questioned_by:questioned_by
+                });
+            })
             .catch(err=>{console.log(err)});
     }
 
@@ -39,9 +51,9 @@ class Singlequestionpage extends Component{
             <div>
                 {ans.map(a => (    
                     <p>
+                        <p className="subscript">answered_by</p>
                         <i className="fa fa-user-circle-o"></i>
                          &nbsp;{a.answered_by}
-                        <p className="subscript">answered_by</p>
                         
                         <ReadMoreAndLess
                             className="read-more-content"
@@ -62,7 +74,7 @@ class Singlequestionpage extends Component{
     
 
     render(){
-        console.log("****************",this.props.match.params.question,"**************");
+       
         if(this.state.loggedin){
             return(
                 
@@ -74,10 +86,15 @@ class Singlequestionpage extends Component{
                         </div>
                         <div className="col-sm-6">
                             <div className="box">
-                            
-                            <p className="sqpQuestionHeading">{this.state.question}</p>
-                            <div className="line"></div>
-                            <p className="sqpAnswers">{this.getanswer(this.state.answer)}</p>
+                                <div>
+                                    <p className="subscript">&nbsp;&nbsp;questioned_by</p>
+                                    &nbsp;<i className="fa fa-user-circle-o"></i>
+                                        &nbsp;{this.state.questioned_by}
+                                
+                                <p className="sqpQuestionHeading">{this.state.question}</p>
+                                </div>
+                                <div className="line"></div>
+                                <div className="sqpAnswers">{this.getanswer(this.state.answer)}</div>
                             </div>
                         </div>
                         <div className="col-sm-3">
@@ -94,3 +111,7 @@ class Singlequestionpage extends Component{
 }
 
 export default Singlequestionpage;
+
+/*
+     this.setState({question:this.props.match.params.question+"?",answer:res.data
+*/

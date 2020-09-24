@@ -11,6 +11,8 @@ import Navigationbar from './Navigationbar'
 
 import Singlequestionpage from './Homepage_components/Singlequestionpage'
 import Addquestionpage from './Homepage_components/Addquestionpage'
+import Answerpage from './Homepage_components/Answerpage'
+import Addanswer from './Homepage_components/Addanswer'
 
 class Firstpage extends Component{
 
@@ -18,7 +20,7 @@ class Firstpage extends Component{
         return(
             <div>
                <Router>
-                    <Route path="/singlequestionpage/:question" exact component={Singlequestionpage} />
+                    <Route path="/singlequestionpage/:question/:questioned_by" exact component={Singlequestionpage} />
                     <Route path="/addquestionpage" exact component={Addquestionpage}/>
                     <Route path='/homepage' exact component={Homepage} />
                     <Route path='/signin' exact component={Signinpage} />
@@ -27,6 +29,8 @@ class Firstpage extends Component{
                     <Route path="/dummy" exact component={Dummy} />
                     <Route path="/logout" exact component={Logout} />
                     <Route path="/nav" exact component={Navigationbar} />
+                    <Route path="/answerpage" exact component={Answerpage} />
+                    <Route path="/addanswer/:question" exact component={Addanswer} />
                 </Router>
             </div>
         );

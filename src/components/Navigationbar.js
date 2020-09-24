@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Redirect } from 'react-router';
+import Addquestionpage from './Homepage_components/Addquestionpage';
 
 class Navigationbar extends Component{
 
@@ -11,20 +11,20 @@ class Navigationbar extends Component{
     render(){
         const username=localStorage.getItem("username");
         return(
-            <div>
+            <div> 
                 <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
                     <ul className="navbar-nav">
                         <li className="nav-item active navheading">
                             <a className="nav-link" href="/homepage">DORA</a>
                         </li>
                         <li className="nav-item navitem">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/homepage">
                             <i className="fa fa-home iconsize"></i>
                                 Home
                             </a>
                         </li>
                         <li className="nav-item navitem">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/answerpage">
                             <i className="fa fa-pencil-square-o iconsize"></i>
                                 Answer
                             </a>
@@ -40,7 +40,7 @@ class Navigationbar extends Component{
                             <input type="test" className="navitemsearch" placeholder="search"/>
                         </li>
                         <li className="nav-item">
-                            <button className="addquestionbtn" onClick={this.addquestionhandler}>Add Question</button>
+                            <Addquestionpage />
                         </li>
                         <li className="profilebutton">
                         <div className="dropdown">
@@ -65,8 +65,7 @@ class Navigationbar extends Component{
                         
                     </ul>
                 </nav>
-
-                
+              
             </div>            
         );
     }
@@ -74,6 +73,9 @@ class Navigationbar extends Component{
 export default Navigationbar;
 
 /*
+
+<button className="addquestionbtn" onClick={this.addquestionhandler}>Add Question</button>
+
 <div className="dropdown">
                             <button type="button" data-toggle="dropdown">
                             <i class="fa fa-user-circle-o"></i>

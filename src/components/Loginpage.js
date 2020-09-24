@@ -8,9 +8,7 @@ class Loginpage extends Component{
         super();
         let loggedin=true;
         const token=localStorage.getItem("token");
-        console.log(token);
         if(token === null){
-            console.log(token ,"((((((((((");
             loggedin=false;
         }
         this.state={
@@ -20,15 +18,13 @@ class Loginpage extends Component{
     }
 
     loginresponse = (response) => {
-        console.log(response);
-        const user=document.getElementById('Name').value;
-        const data=response.data;
-        console.log(data === 'F');
-        if(data === 'F'){
+        const user=response.data.username
+        const jwt=response.data.jwt;
+        if(jwt === 'false'){
             alert('incorret usename or password');
         }
         else{
-            localStorage.setItem("token",response.data);
+            localStorage.setItem("token",jwt);
             localStorage.setItem("username",user);
             this.setState({loggedin:true});
            
@@ -42,9 +38,11 @@ class Loginpage extends Component{
         const password=document.getElementById("Password").value;
         
         if((name!=='')&&(password!=='')){
-            axios.get("http://localhost:8080/login?name=" + name + "&password=" + password)
+            axios.get("/login?userid=" + name + "&password=" + password)
                 .then(res=> {this.loginresponse(res)})
                 .catch(err=>{console.log(err)});
+
+            
         }
     }
 
@@ -65,18 +63,19 @@ class Loginpage extends Component{
                 <div>
                     <div className="signinbutton">
                     <Link to="/signin">
-                        <button>Sign In</button>
+                        <button className="switchingbutton">Sign In</button>
                     </Link>
                     </div>
-                    <div className="jumbotron ">
+                    <div className="jumbotron initialpage">
                         
                         <div className="loginbox">
                             <form onSubmit={(event)=>this.clickhandler(event)}>
-                            <p className="heading">LOGIN</p>
-                            <p className="inputcontent">
+                            <div className="heading">DORA</div>
+                            <div className="inputcontent">
+                                <p className="loginhead">Login</p>
                                 <input type="text" placeholder="Enter username"  className="inputbox" id="Name" required />
                                 <input type="password" placeholder="Enter password" className="inputbox" id="Password" required />
-                            </p>
+                            </div>
                             <button className="submitbutton">LOGIN</button> 
                             </form>
                         </div>
@@ -88,5 +87,7 @@ class Loginpage extends Component{
 }
 export default Loginpage;
 
-
+/*
+.then(res=> {this.loginresponse(res)})
+*/
 /* 34: .then(res=> {this.loginresponse(res)})*/
